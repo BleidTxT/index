@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de San Valentín</title>
+    <style>
+        body {
+            background-color: #fff0f5;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            color: #d63384;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow: auto;
+        }
+
+        header {
+            background-color: #d63384;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            left: 0;
+        }
+
+        section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;  /* Reducido el espacio superior */
+            padding-bottom: 80px;
+            position: relative;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 3px solid #ff69b4;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .button {
+            background-color: #ff69b4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background-color: #c2185b;
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background-color: #d63384;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        /* Corazones flotantes */
+        .heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: floatUp 5s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Animación de tarjeta flotante */
+        .floating-card {
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        💌 Invitación Especial de San Valentín 💖
+    </header>
+
+    <section>
+        <div class="heart-container"></div> <!-- Corazones flotantes -->
+
+        <div class="card floating-card" id="mainCard">
+            <img src="/img/lukasz-rawa-hkSInYvOLtQ-unsplash.jpg" alt="San Valentín">
+            <h2>¡Feliz San Valentín!</h2>
+            <p>Quiero invitarte a una celebración especial.</p>
+            <p><strong>Fecha:</strong> 14 de febrero</p>
+            <p><strong>Hora:</strong> 8:00 PM</p>
+            <p><strong>Lugar:</strong> Donde quieras 🌷</p>
+            <button class="button" onclick="showDetails()">Confirmar Asistencia</button>
+        </div>
+        
+        <div class="card hidden" id="detailsCard">
+            <h2>¡Gracias por confirmar chatita! 🎉</h2>
+            <p>Me alegra saber que confirmaras. Bueno lo que pasara ese dia ya lo decidiremos nosotros</p>
+            <p>Si necesitas mas detalle, escribeme 💖</p>
+            <p>te quiero mucho nos vemos muah</p>
+            <button class="button" onclick="animateHearts()">¡Más Corazones Flotantes!</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Invitación de San Valentín - Con mucho amor 💖</p>
+    </footer>
+
+    <script>
+        function showDetails() {
+            document.getElementById('mainCard').classList.add('hidden');
+            document.getElementById('detailsCard').classList.remove('hidden');
+        }
+
+        // Función para generar corazones flotantes adicionales
+        function animateHearts() {
+            const heartContainer = document.querySelector('.heart-container');
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+
+                heartContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+
+        // Generación inicial de corazones flotantes
+        function createHearts() {
+            const heartContainer = document.querySelector('.heart-container');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+
+                heartContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 500);
+        }
+
+        // Activar corazones flotantes al cargar
+        document.addEventListener("DOMContentLoaded", function () {
+            createHearts();
+        });
+        
+        // Otras animaciones adicionales
+        document.addEventListener("DOMContentLoaded", function () {
+            // Efecto de parpadeo de los corazones de la cabecera
+            let header = document.querySelector('header');
+            setInterval(() => {
+                header.style.opacity = (header.style.opacity == 0 ? 1 : 0);
+            }, 1000);
+
+            // Efecto de mover el footer
+            let footer = document.querySelector('footer');
+            footer.style.transition = "transform 1s ease-in-out";
+            setInterval(() => {
+                footer.style.transform = (footer.style.transform == "translateY(10px)" ? "translateY(0)" : "translateY(10px)");
+            }, 3000);
+        });
+    </script>
+
+</body>
+</html>
